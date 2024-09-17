@@ -7,7 +7,7 @@ edition = "2021"
 
 [profile.release]
 opt-level = 3
-strip = "all"
+strip = "symbols"
 
 [target.x86_64-unknown-linux-gnu]
 linker = "x86_64-linux-gnu-gcc"
