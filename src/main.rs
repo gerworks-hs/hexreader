@@ -20,28 +20,21 @@ fn main() {
 	};
 
 	read_hex(&mut file_data);
+
+	std::process::exit(0);
 }
 
 fn read_hex(file: &mut std::fs::File) -> () {
-	// The function uses an array of 4 bytes (32 bits) as the data chunk size
-	// If the file is 40 bits long then 2 chunks of data (iterations) must be processed
-	// fill method is used to avoid repeating data if the next chunk does not fill up the buffer
-	// The smaller the buffer is, the slower hexreader becomes
-	// Since fill method is used, if the next chunk does not fill up buffer, zeroes will be printed
-	// This can lead to confusion when reading a file that in fact contains zeroes
-	// This could be easily fixed decreasing data chunk size, but performance would be decreased
-	// A fix will come out for this
 	let mut byte_buffer: [u8; 4] = [0; 4];
 	loop {
-		byte_buffer.fill(0);
 		match file.read(&mut byte_buffer) {
 			Ok(bytes_read) => {
 				if bytes_read == 0 {
 					println!(" --> EOF reached <-- ");
 					break;
 				} else {
-					for i in byte_buffer {
-						print!("{}", format!("{:02X} ", i));
+					for i in 0..=(bytes_read - 1) {
+						print!("{}", format!("{:02X} ", byte_buffer[i]));
 					}
 				}
 			}
