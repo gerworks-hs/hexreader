@@ -37,7 +37,7 @@ fn read_hex(file: &mut std::fs::File) -> () {
 		match file.read(&mut byte_buffer) {
 			Ok(bytes_read) => {
 				if bytes_read == 0 {
-					println!("--> EOF reached <--");
+					println!(" --> EOF reached <-- ");
 					break;
 				} else {
 					for i in byte_buffer {
