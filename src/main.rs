@@ -4,6 +4,9 @@ fn main() {
     let argv: Vec<String> = std::env::args().collect::<Vec<String>>();
 	let argc: usize = argv.len();
 
+	println!("hexreader - v1.4.1");
+	println!("Made by Gerworks-HS (itsgerliz)");
+
 	if argc != 2 {
 		println!("Usage: {} <file name>", argv[0]);
 		std::process::exit(1);
