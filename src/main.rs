@@ -20,8 +20,6 @@ fn main() {
 	};
 
 	read_hex(&mut file_data);
-
-	std::process::exit(0);
 }
 
 fn read_hex(file: &mut std::fs::File) -> () {
