@@ -6,6 +6,7 @@ fn main() {
 
 	println!("hexreader - v1.5.0");
 	println!("Made by Gerworks-HS (itsgerliz)");
+	println!("");
 
 	if argc != 2 {
 		println!("Usage: {} <file name>", argv[0]);
@@ -22,20 +23,34 @@ fn main() {
 		}
 	};
 
+	println!("Reading file <{}>", argv[1]);
+
 	read_hex(&mut file_data);
 }
 
 fn read_hex(file: &mut std::fs::File) -> () {
 	let mut byte_buffer: [u8; 4] = [0; 4];
+	let mut counter: u8 = 0;
 	loop {
 		match file.read(&mut byte_buffer) {
 			Ok(bytes_read) => {
 				if bytes_read == 0 {
-					println!(" --> EOF reached <-- ");
+					println!("");
+					println!("--> EOF reached <--");
 					break;
 				} else {
 					for i in 0..=(bytes_read - 1) {
-						print!("{}", format!("{:02X} ", byte_buffer[i]));
+						if counter >= 8 {
+							println!("");
+							print!("{}", format!("{:02X} ", byte_buffer[i]));
+							counter = 0;
+							counter += 1;
+							continue;
+						} else {
+							print!("{}", format!("{:02X} ", byte_buffer[i]));
+							counter += 1;
+							continue;
+						}
 					}
 				}
 			}
