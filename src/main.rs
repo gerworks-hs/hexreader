@@ -4,7 +4,7 @@ fn main() {
 	let argv: Vec<String> = std::env::args().collect::<Vec<String>>();
 	let argc: usize = argv.len();
 
-	println!("hexreader - v1.6.1");
+	println!("hexreader - v2.0.0");
 	println!("Made by Gerworks-HS (itsgerliz)");
 	println!("");
 
