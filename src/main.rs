@@ -42,7 +42,7 @@ fn read_hex(file: &mut std::fs::File) -> () {
 					for i in 0..=(bytes_read - 1) {
 						print!("{}", format!("{:02X} ", byte_buffer[i]));
 						counter += 1;
-						counter = counter % 8;
+						counter %= 8;
 						if counter == 0 {
 							println!("");
 						}
