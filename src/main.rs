@@ -13,18 +13,18 @@ fn main() {
 		std::process::exit(1);
 	}
 
-	for i in argv {
-		let file_path: &std::path::Path = std::path::Path::new(&i);
+	for i in 1..=argc {
+		let file_path: &std::path::Path = std::path::Path::new(&argv[i]);
 
 		let mut file_data: std::fs::File = match std::fs::File::open(file_path) {
 			Ok(file_struct) => {file_struct}
 			Err(_) => {
-				println!("Error trying to open file path ({})", i);
+				println!("Error trying to open file path ({})", argv[i]);
 				continue;
 			}
 		};
 
-		println!("Reading file <{}>", i);
+		println!("Reading file <{}>", argv[i]);
 
 		match read_hex(&mut file_data) {
 			true => {
