@@ -8,27 +8,36 @@ fn main() {
 	println!("Made by Gerworks-HS (itsgerliz)");
 	println!("");
 
-	if argc != 2 {
-		println!("Usage: {} <file name>", argv[0]);
+	if argc < 2 {
+		println!("Usage: {} <file name> ...", argv[0]);
 		std::process::exit(1);
 	}
 
-	let file_path: &std::path::Path = std::path::Path::new(&argv[1]);
+	for i in argv {
+		let file_path: &std::path::Path = std::path::Path::new(&i);
 
-	let mut file_data: std::fs::File = match std::fs::File::open(file_path) {
-		Ok(file_struct) => {file_struct}
-		Err(_) => {
-			println!("Error trying to access file path ({})", argv[1]);
-			std::process::exit(1);
+		let mut file_data: std::fs::File = match std::fs::File::open(file_path) {
+			Ok(file_struct) => {file_struct}
+			Err(_) => {
+				println!("Error trying to open file path ({})", i);
+				continue;
+			}
+		};
+
+		println!("Reading file <{}>", i);
+
+		match read_hex(&mut file_data) {
+			true => {
+				println!("I/O Error, aborting...");
+				std::process::exit(1);
+			}
+			false => {()}
 		}
-	};
-
-	println!("Reading file <{}>", argv[1]);
-
-	read_hex(&mut file_data);
+	}
+	
 }
 
-fn read_hex(file: &mut std::fs::File) -> () {
+fn read_hex(file: &mut std::fs::File) -> bool {
 	let mut byte_buffer: [u8; 4] = [0; 4];
 	let mut counter: u8 = 0;
 	loop {
@@ -52,8 +61,9 @@ fn read_hex(file: &mut std::fs::File) -> () {
 			}
 			Err(_) => {
 				println!("Error found when trying to read file");
-				std::process::exit(1);
+				return true;
 			}
 		}
 	}
+	return false;
 }
