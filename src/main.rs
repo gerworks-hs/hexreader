@@ -13,7 +13,7 @@ fn main() {
 		std::process::exit(1);
 	}
 
-	for i in 1..=argc {
+	for i in 1..=(argc - 1) {
 		let file_path: &std::path::Path = std::path::Path::new(&argv[i]);
 
 		let mut file_data: std::fs::File = match std::fs::File::open(file_path) {
