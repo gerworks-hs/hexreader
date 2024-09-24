@@ -40,17 +40,13 @@ fn read_hex(file: &mut std::fs::File) -> () {
 					break;
 				} else {
 					for i in 0..=(bytes_read - 1) {
-						if counter >= 8 {
+						print!("{}", format!("{:02X} ", byte_buffer[i]));
+						counter += 1;
+						counter = counter % 8;
+						if counter == 0 {
 							println!("");
-							print!("{}", format!("{:02X} ", byte_buffer[i]));
-							counter = 0;
-							counter += 1;
-							continue;
-						} else {
-							print!("{}", format!("{:02X} ", byte_buffer[i]));
-							counter += 1;
-							continue;
 						}
+						continue;
 					}
 				}
 			}
